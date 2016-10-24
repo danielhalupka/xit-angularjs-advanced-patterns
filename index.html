@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html data-ng-app="@@app_name" data-ng-controller="RootController as root">
+    <head>
+        <title>@@app_name</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/@@app_name.min.js"></script>
+    </head>
+    <body>
+        <main style="width: 100%;float:left" data-ng-view></main>
+        <div>
+            <button data-ng-click="root.goTo('/calculator')">Calculator</button>
+            <button data-ng-click="root.goTo('/trigonometric_calculator')">Trigonometric Calculator</button>
+            <button data-ng-click="root.goTo('/scientific_calculator')">Scientific Calculator</button>
+        </div>
+    </body>
+</html>
