@@ -4,7 +4,7 @@ module.exports = function (grunt) {
     'use strict';
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
-	    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-css');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-clean');
@@ -17,7 +17,6 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-      
         replace: {
             dist: {
                 options: {
@@ -32,8 +31,23 @@ module.exports = function (grunt) {
                     {expand: true, flatten: true, src: ['index.html'], dest: 'temp/'}
                 ]
             },
-            javascript:{
-                 options: {
+            environment: {
+                options: {
+                    patterns: [
+                        {
+                            match: 'environment',
+                            replacement: function(){
+                                return process.argv[2];
+                            }
+                        }
+                    ]
+                },
+                files: [
+                    {expand: true, flatten: true, src: ['app/env.config.js'], dest: 'temp/'}
+                ]
+            },
+            javascript: {
+                options: {
                     patterns: [
                         {
                             match: 'app_name',
@@ -46,9 +60,8 @@ module.exports = function (grunt) {
                 ]
             }
         },
-      
         copy: {
-            html:{
+            html: {
                 cwd: 'temp/', // set working folder / root to copy
                 src: 'index.html', // copy all files and subfolders
                 dest: 'build/<%= pkg.name %>/<%= pkg.version %>/', // destination folder
@@ -60,11 +73,24 @@ module.exports = function (grunt) {
                 dest: 'build/<%= pkg.name %>/<%= pkg.version %>/partials/', // destination folder
                 expand: true // required when using cwd
             },
-             view: {
+            view: {
                 cwd: 'app/main_views', // set working folder / root to copy
                 src: ['**/*.html', '*.html'], // copy all files and subfolders
                 dest: 'build/<%= pkg.name %>/<%= pkg.version %>/view/', // destination folder
                 expand: true // required when using cwd
+            },
+            mocks: {
+                cwd: 'app/mocks', // set working folder / root to copy
+                src: ['**/*'], // copy all files and subfolders
+                dest: 'build/<%= pkg.name %>/<%= pkg.version %>/mocks/', // destination folder
+                expand: true // required when using cwd
+            },
+            devJs:{ 
+                cwd: 'temp/', // set working folder / root to copy
+                src: '<%= pkg.name %>.js', // copy all files and subfolders
+                dest: 'build/<%= pkg.name %>/<%= pkg.version %>/js/', // destination folder
+                expand: true // required when using cwd
+               
             }
         },
         concat: {
@@ -77,6 +103,7 @@ module.exports = function (grunt) {
                             '\n */ \n'
                 },
                 src: [
+                    'temp/env.config.js',
                     'app/shared/class.js',
                     'app/dependencies/angular/angular.js',
                     'app/dependencies/angular-local-storage/angular-local-storage.js',
@@ -113,5 +140,6 @@ module.exports = function (grunt) {
 
     });
 
-    grunt.registerTask('default', ['bower','replace:dist','replace:javascript','copy', 'concat', 'uglify']);
+    grunt.registerTask('default', ['bower', 'replace:dist', 'replace:javascript','replace:environment', 'copy:html','copy:javascript','copy:view', 'concat', 'uglify']);
+    grunt.registerTask('dev', ['bower', 'replace:dist', 'replace:javascript','replace:environment', 'copy', 'concat', 'uglify']);
 };
