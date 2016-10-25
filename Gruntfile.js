@@ -37,7 +37,7 @@ module.exports = function (grunt) {
                         {
                             match: 'environment',
                             replacement: function(){
-                                return process.argv[2];
+                                return process.argv[2] || "default";
                             }
                         }
                     ]

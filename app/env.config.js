@@ -2,10 +2,12 @@ var appConfig = {
     activeEndpoint:"@@environment",
     appEndpointList:{
         default:{
-            getPeople:""    
+            getPeople:"mocks/people.json",
+            setSelectedPeron:"mocks/people.json",
         },
         dev:{
-            getPeople:"mocks/people.json"
+            getPeople:"mocks/people.json",
+            setSelectedPeron:"mocks/people.json",
         }
     }
 };

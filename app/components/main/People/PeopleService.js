@@ -1,14 +1,20 @@
 
 var PeopleService = Class.extend({
     getPeople: function (callback) {
-        this.$http.get(appConfig.appEndpointList[appConfig.activeServer]['getPeople']).success(function (result) {
+        this.$http.get(appConfig.appEndpointList[appConfig.activeEndpoint]['getPeople']).success(function (result) {
             callback(result);
         });
     },
-    setPerson: function (volaco, callback) {
-        this.$http.post("url").success(function (result) {
-            callback(result);
-        });
+    setSelectedPerson: function (person, callback) {
+        /* Currently no POST service, since there is no webservice
+         * 
+         * this.$http.post(appConfig.appEndpointList[appConfig.activeEndpoint]['setSelectedPeron'],person).success(function (result) {
+         *  callback(result);
+         * });
+         *
+         */
+        var result = [];
+        callback(result);
     }
 
 });
