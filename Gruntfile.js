@@ -42,7 +42,7 @@ module.exports = function (grunt) {
                     ]
                 },
                 files: [
-                    {expand: true, flatten: true, src: ['package.json'], dest: './'}
+                    {expand: true, flatten: true, src: ['app/package.json'], dest: './'}
                    
                 ]
             },
