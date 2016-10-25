@@ -17,6 +17,7 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        appName: grunt.option('app_name'),
         replace: {
             dist: {
                 options: {
@@ -35,6 +36,20 @@ module.exports = function (grunt) {
                 options: {
                     patterns: [
                         {
+                            match: 'app_name',
+                            replacement: "<%= appName %>"
+                        }
+                    ]
+                },
+                files: [
+                    {expand: true, flatten: true, src: ['package.json'], dest: './'}
+                   
+                ]
+            },
+            appName:{
+                 options: {
+                    patterns: [
+                        {
                             match: 'environment',
                             replacement: function(){
                                 return process.argv[2] || "default";
@@ -43,7 +58,7 @@ module.exports = function (grunt) {
                     ]
                 },
                 files: [
-                    {expand: true, flatten: true, src: ['app/env.config.js'], dest: 'temp/'}
+                     {expand: true, flatten: true, src: ['app/env.config.js'], dest: 'temp/'}
                 ]
             },
             javascript: {
@@ -139,7 +154,8 @@ module.exports = function (grunt) {
         }
 
     });
-
+    
+    grunt.registerTask('first-run',[]);
     grunt.registerTask('default', ['bower', 'replace:dist', 'replace:javascript','replace:environment', 'copy:html','copy:javascript','copy:view', 'concat', 'uglify']);
     grunt.registerTask('dev', ['bower', 'replace:dist', 'replace:javascript','replace:environment', 'copy', 'concat', 'uglify']);
 };
