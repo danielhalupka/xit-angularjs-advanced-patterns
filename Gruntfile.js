@@ -155,7 +155,7 @@ module.exports = function (grunt) {
 
     });
     
-    grunt.registerTask('first-run',[]);
+    grunt.registerTask('first-run',['replace:appName']);
     grunt.registerTask('default', ['bower', 'replace:dist', 'replace:javascript','replace:environment', 'copy:html','copy:javascript','copy:view', 'concat', 'uglify']);
     grunt.registerTask('dev', ['bower', 'replace:dist', 'replace:javascript','replace:environment', 'copy', 'concat', 'uglify']);
 };
