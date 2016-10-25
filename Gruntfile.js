@@ -17,7 +17,7 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        appName: grunt.option('app_name'),
+        app_name: grunt.option('app_name'),
         replace: {
             dist: {
                 options: {
@@ -32,7 +32,7 @@ module.exports = function (grunt) {
                     {expand: true, flatten: true, src: ['index.html'], dest: 'temp/'}
                 ]
             },
-            environment: {
+            appName: {
                 options: {
                     patterns: [
                         {
@@ -46,7 +46,7 @@ module.exports = function (grunt) {
                    
                 ]
             },
-            appName:{
+            environment:{
                  options: {
                     patterns: [
                         {
