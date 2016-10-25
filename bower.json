@@ -18,11 +18,5 @@
     "angular-cookies": "1.5.8",
     "angular-touch": "1.5.8",
     "angular-mocks": "1.5.8"
-  },
-  "dependencies": {
-    "angular-local-storage": "~0.2.3"
-  },
-  "resolutions": {
-    "angular": "1.5.8"
   }
 }

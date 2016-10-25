@@ -16,7 +16,8 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-bower-task": "latest",
     "grunt-css": "~0.5.x",
-    "grunt-reload": "^0.2.0"
+    "grunt-reload": "^0.2.0",
+    "grunt-cli": "^1.2.0"
   },
   "dependencies": {
     "grunt-cli": "^1.2.0"
