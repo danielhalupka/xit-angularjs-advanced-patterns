@@ -37,7 +37,7 @@ module.exports = function (grunt) {
                     patterns: [
                         {
                             match: 'app_name',
-                            replacement: "<%= appName %>"
+                            replacement: "<%= app_name %>"
                         }
                     ]
                 },
