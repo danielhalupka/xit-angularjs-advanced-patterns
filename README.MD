@@ -7,3 +7,5 @@ Manual is being developed.
 
 Cheers,
 Danijel
+
+ && npm i -g commander && npm i -g grunt && npm i -g grunt-contrib-clean && npm i -g grunt-contrib-copy && npm i -g grunt-contrib-rename && npm i -g grunt-replace

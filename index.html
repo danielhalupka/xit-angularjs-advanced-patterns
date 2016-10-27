@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-ng-app="@@app_name" data-ng-controller="RootController as root">
+<html data-ng-app="@@app_name">
     <head>
         <title>@@app_name</title>
         <meta charset="UTF-8">
@@ -7,12 +7,6 @@
         <script src="js/@@app_name.min.js"></script>
     </head>
     <body>
-        <main style="width: 100%;float:left" data-ng-view></main>
-        <div>
-            <button data-ng-click="root.goTo('/calculator')">Calculator</button>
-            <button data-ng-click="root.goTo('/trigonometric_calculator')">Trigonometric Calculator</button>
-            <button data-ng-click="root.goTo('/scientific_calculator')">Scientific Calculator</button>
-            <button data-ng-click="root.goTo('/people')">People table</button>
-        </div>
+        <main data-ng-view></main>
     </body>
 </html>

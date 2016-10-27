@@ -13,11 +13,13 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-bower-task');
     grunt.loadNpmTasks('grunt-replace');
+    grunt.loadNpmTasks('grunt-contrib-rename');
     // Project configuration.
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         app_name: grunt.option('app_name'),
+       
         replace: {
             dist: {
                 options: {
@@ -43,22 +45,22 @@ module.exports = function (grunt) {
                 },
                 files: [
                     {expand: true, flatten: true, src: ['app/package.json'], dest: './'}
-                   
+
                 ]
             },
-            environment:{
-                 options: {
+            environment: {
+                options: {
                     patterns: [
                         {
                             match: 'environment',
-                            replacement: function(){
+                            replacement: function () {
                                 return process.argv[2] || "default";
                             }
                         }
                     ]
                 },
                 files: [
-                     {expand: true, flatten: true, src: ['app/env.config.js'], dest: 'temp/'}
+                    {expand: true, flatten: true, src: ['app/env.config.js'], dest: 'temp/'}
                 ]
             },
             javascript: {
@@ -100,12 +102,11 @@ module.exports = function (grunt) {
                 dest: 'build/<%= pkg.name %>/<%= pkg.version %>/mocks/', // destination folder
                 expand: true // required when using cwd
             },
-            devJs:{ 
+            devJs: {
                 cwd: 'temp/', // set working folder / root to copy
                 src: '<%= pkg.name %>.js', // copy all files and subfolders
                 dest: 'build/<%= pkg.name %>/<%= pkg.version %>/js/', // destination folder
                 expand: true // required when using cwd
-               
             }
         },
         concat: {
@@ -128,12 +129,15 @@ module.exports = function (grunt) {
                     'app/dependencies/angular-route/angular-route.js',
                     'app/dependencies/angular-touch/angular-touch.js',
                     'app/dependencies/angular-animate/angular-animate.js',
-                    'app/importable_components/main/Calculator/CalculatorController.js',
-                    'app/importable_components/main/Calculator/TrigonometricCalculatorController.js',
                     'app/components/**/*.js',
                     'temp/app.config.js'
                 ],
                 dest: 'temp/<%= pkg.name %>.js'
+            }
+        },
+        clean: {
+            yourTarget: {
+                src: ['temp']
             }
         },
         bower: {
@@ -154,8 +158,9 @@ module.exports = function (grunt) {
         }
 
     });
+
+    grunt.registerTask('first-run', ['replace:appName']);
+    grunt.registerTask('default', ['bower', 'replace:dist', 'replace:javascript', 'replace:environment', 'copy:html', 'copy:javascript', 'copy:view', 'concat', 'uglify', 'clean']);
+    grunt.registerTask('dev', ['bower', 'replace:dist', 'replace:javascript', 'replace:environment', 'copy:html', 'copy:javascript', 'copy:view', 'copy:mocks', 'copy:devJs', 'concat', 'uglify', 'clean']);
     
-    grunt.registerTask('first-run',['replace:appName']);
-    grunt.registerTask('default', ['bower', 'replace:dist', 'replace:javascript','replace:environment', 'copy:html','copy:javascript','copy:view', 'concat', 'uglify']);
-    grunt.registerTask('dev', ['bower', 'replace:dist', 'replace:javascript','replace:environment', 'copy', 'concat', 'uglify']);
 };
